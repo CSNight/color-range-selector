@@ -18,7 +18,7 @@
                          @click="showPickerPanel(c)"/>
                 </div>
                 <div class="color-edit">
-                    <input type="text" class="color-input" id="input-layer-label" v-model="c.color"/>
+                    <input spellcheck="false" type="text" class="color-input" id="input-layer-label" v-model="c.color"/>
                 </div>
                 <svg viewBox="0 0 64 64" width="16px" height="16px" style="fill:#ccc;" @click="delColor(c)">
                     <path d="M51.4,13.9v1.6c0,0.9-0.7,1.6-1.6,1.6H13.6c-0.9,0-1.6-0.7-1.6-1.6v-1.6c0-0.9,0.7-1.6,1.6-1.6h9
@@ -41,7 +41,7 @@
 import {Clickoutside} from './domUtil'
 import draggable from "vuedraggable";
 import colorPicker from './ColorPicker'
-import {guid, hexToRgb, rgbToHex} from "@/utils/utils";
+import {guid, hexToRgb, rgbToHex} from "./utils";
 
 export default {
     name: "paletteEdit",
