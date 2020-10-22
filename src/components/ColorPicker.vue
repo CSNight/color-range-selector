@@ -154,6 +154,7 @@ export default {
         },
         changeInput($event, key) {
             this.$set(this.showColor, key, $event.target.valueAsNumber)
+            this.calcBg();
         },
         calcInfo() {
             let {left: l, width: w} = this.$refs.opacityBar.getBoundingClientRect();
