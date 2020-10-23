@@ -1,7 +1,7 @@
 <template>
     <div class="color-picker" ref="colorPicker" v-show="show">
         <div class="color-picker-up">
-            <div class="color-panel" ref="panelBg" :style="{background}" @click="bgClick">
+            <div class="color-panel" ref="panelBg" :style="{background:background}" @click="bgClick">
                 <div class="panel-bg-white"></div>
                 <div class="panel-bg-black"></div>
                 <div class="panel-thumb" ref="panelTh" :style="thumbPosition"></div>
@@ -17,8 +17,8 @@
             <div class="color-opacity-thumb" ref="opacityBarTh" :style="opPosition"></div>
         </div>
         <div class="flexbox-fix" style="display: flex; padding-top: 4px;">
-            <div style="flex: 2 1 0%;">
-                <input spellcheck="false" v-model="colorToHex"><span>hex</span>
+            <div>
+                <input spellcheck="false" style="max-width: 50px" v-model="colorToHex"><span>hex</span>
             </div>
             <div>
                 <input spellcheck="false" v-model="this.showColor.r"/><span>r</span>
@@ -30,10 +30,11 @@
                 <input spellcheck="false" v-model="this.showColor.b"/><span>b</span>
             </div>
             <div>
-                <input spellcheck="false" v-model="this.showColor.a"/><span>a</span>
+                <input spellcheck="false" style="max-width: 15px" v-model="this.showColor.a"/><span>a</span>
             </div>
         </div>
         <div style="display: flex;justify-content: flex-end;align-items: center">
+            
             <div class="color-confirm" @click="emitVal">save</div>
         </div>
     </div>
@@ -41,7 +42,7 @@
 
 <script>
 import {draggable} from "./domUtil";
-import {hexToRgb, rgbToHex} from "@/utils/utils";
+import {hexToRgb, rgbToHex} from "./utils";
 
 export default {
     name: "ColorPicker",
@@ -74,8 +75,8 @@ export default {
             handler: function (val) {
                 if (val) {
                     Object.assign(this.showColor, val)
-                }else{
-                    Object.assign(this.showColor, {  r: 0, g: 0, b: 0, a: 0,})
+                } else {
+                    Object.assign(this.showColor, {r: 0, g: 0, b: 0, a: 0,})
                 }
             },
             deep: true,
@@ -455,8 +456,8 @@ export default {
     }
     
     .flexbox-fix {
+        justify-content: space-between;
         div {
-            flex: 1 1 0%;
             padding-left: 1px;
             
             span {
@@ -468,8 +469,7 @@ export default {
             }
             
             input {
-                width: 100%;
-                padding: 4px 10% 3px;
+                max-width: 25px;
                 border: none;
                 font-size: 11px;
                 text-align: center;

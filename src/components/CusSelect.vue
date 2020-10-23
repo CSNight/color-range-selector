@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown-select">
+    <div class="dropdown-select" v-clickoutside="()=>{this.show=false}">
         <div class="dropdown-input" @click="showPanel">
             <span class="dropdown-label">{{ cl }}</span>
         </div>
@@ -13,7 +13,9 @@
 </template>
 
 <script>
+import {Clickoutside} from './domUtil'
 export default {
+    directives: {Clickoutside},
     name: "CusSelect",
     props: ['types', 'clazz'],
     data() {
@@ -38,11 +40,12 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown-label {
-    padding: 0 23px;
+    margin-left: 10px;
 }
 
 .dropdown-select {
     z-index: 100;
+    position: relative;
     
     .dropdown-input {
         background-color: #3A414C;
@@ -59,7 +62,8 @@ export default {
         border: 0;
         left: 0;
         z-index: 100;
-        position: relative;
+        width: 100%;
+        position: absolute;
         bottom: auto;
         margin-top: 4px;
         margin-bottom: auto;

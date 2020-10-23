@@ -20,7 +20,8 @@
                 <div class="color-edit">
                     <input type="text" class="color-input" id="input-layer-label" v-model="c.color"/>
                 </div>
-                <svg viewBox="0 0 64 64" width="16px" height="16px" style="fill:#ccc;" @click="delColor(c)">
+                <svg viewBox="0 0 64 64" width="16px" height="16px" class="delBtn" style="fill:#ccc;"
+                     @click="delColor(c)">
                     <path d="M51.4,13.9v1.6c0,0.9-0.7,1.6-1.6,1.6H13.6c-0.9,0-1.6-0.7-1.6-1.6v-1.6c0-0.9,0.7-1.6,1.6-1.6h9
                     c0.9,0,1.6-0.7,1.6-1.6C24.3,9.7,25.1,9,26,9h11.5c0.9,0,1.6,0.7,1.6,1.6c0,0.9,0.7,1.6,1.6,1.6h9C50.7,12.3,51.4,13,51.4,13.9z"/>
                     <path d="M40.8,50.1l0.8-25.4h-3.3l-0.8,25.4H40.8z M30.1,50.1h3.3V24.7h-3.3V50.1z M26,50.1l-0.8-25.4h-3.3l0.8,25.4H26
@@ -41,7 +42,7 @@
 import {Clickoutside} from './domUtil'
 import draggable from "vuedraggable";
 import colorPicker from './ColorPicker'
-import {guid, hexToRgb, rgbToHex} from "@/utils/utils";
+import {guid, hexToRgb, rgbToHex} from "@/components/utils";
 
 export default {
     name: "paletteEdit",
@@ -153,6 +154,15 @@ export default {
     padding-bottom: 3px;
     z-index: 101;
     
+    .delBtn {
+        cursor: pointer;
+        
+        &:hover {
+            fill: #fff;
+        }
+    }
+    
+    
     .color-bg {
         width: 32px;
         height: 18px;
@@ -182,6 +192,10 @@ export default {
             margin-left: -4px;
             background-color: transparent;
             border: 1px solid transparent;
+            
+            &:focus, &:hover {
+                border: 1px #6a7485 solid;
+            }
         }
     }
     

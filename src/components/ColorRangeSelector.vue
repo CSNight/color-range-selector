@@ -30,9 +30,10 @@
                 <div class="form-item">Steps</div>
                 <div class="form-item">
                     <div class="num-input">
-                        <input class="dropdown-label"
-                               style="width:100%;background: transparent;border: none;outline: none" readonly
-                               v-model="steps"/>
+                        <input class="dropdown-label" type="number"
+                               style="width:100%;background: transparent;border: none;outline: none" :readonly="steps"
+                               @change="changeStep"
+                               :value="step"/>
                     </div>
                 </div>
             </div>
@@ -72,7 +73,7 @@ import {colorScheme} from "./colorSchemas";
 import CusSelect from "./CusSelect";
 import PaletteEdit from "./paletteEdit";
 import {Clickoutside} from './domUtil'
-import {hexToRgb, rgbaToArr, rgbToArr, rgbToHex} from "@/utils/utils";
+import {hexToRgb, rgbaToArr, rgbToArr, rgbToHex} from "@/components/utils";
 
 export default {
     name: "ColorRangeSelector",
@@ -86,11 +87,16 @@ export default {
             showDrop: false,
             showCus: false,
             reverse: false,
+            modes: 'HEX',
+            step: 3
         }
     },
     mounted() {
-        if(!this.steps){
-            this.steps=3;
+        if (this.steps) {
+            this.step = this.steps;
+        }
+        if (this.mode) {
+            this.modes = this.mode;
         }
         if (!this.init()) {
             this.selectPalette = this.matchColorSets[0];
@@ -121,7 +127,7 @@ export default {
                 if (this.currentType !== '' && item.type !== this.currentType) {
                     return;
                 }
-                if (this.steps === item.colors.length) {
+                if (this.step === item.colors.length) {
                     item.alphas = new Array(item.colors.length).fill(1)
                     if (this.reverse) {
                         item.colors.reverse()
@@ -137,6 +143,9 @@ export default {
             return sets;
         }
     }, methods: {
+        changeStep(e) {
+            this.step = parseInt(e.data)
+        },
         init() {
             if (this.value && this.value.length > 0) {
                 this.selectPalette = {
@@ -169,7 +178,10 @@ export default {
                 return;
             }
             let tc = [];
-            switch (this.mode.toUpperCase()) {
+            if (!this.modes) {
+                this.modes = 'HEX';
+            }
+            switch (this.modes.toUpperCase()) {
                 default:
                 case"HEX":
                     this.$emit('change', JSON.parse(JSON.stringify(this.selectPalette.colors)))
@@ -248,7 +260,7 @@ export default {
     
     .dropdown-label {
         color: #A0A7B4;
-        padding-left: 3px;
+        margin-left: 10px;
         font-size: 11px;
         line-height: 20px;
     }
@@ -267,7 +279,7 @@ export default {
         display: flex;
         min-height: 12px;
         margin-left: 12px;
-        padding: 8px;
+        justify-content: flex-end;
         
         input {
             position: absolute;
@@ -366,7 +378,7 @@ export default {
         width: 100%;
         left: 0;
         z-index: 100;
-        position: absolute;
+        position: relative;
         bottom: auto;
         margin-top: 4px;
         margin-bottom: auto;
@@ -406,9 +418,10 @@ export default {
         justify-content: space-between;
         
         .form-item {
-            height: 32px;
-            padding: 2px 6px;
+            line-height: 32px;
+            flex: 1;
             box-sizing: border-box;
+            position: relative;
         }
     }
     
@@ -419,7 +432,6 @@ export default {
         width: 100%;
         box-sizing: border-box;
         line-height: 28px;
-        padding: 0 16px;
         color: #A0A7B4;
         overflow: hidden;
     }

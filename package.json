@@ -1,68 +1,69 @@
 {
-    "name": "color-range-selector",
-    "version": "0.1.0",
-    "private": true,
-    "_spec": "1.0.1",
-    "_where": "E:\\WebStorm_JS_Workspace\\storm_admin",
-    "author": {
-        "name": "Chensi",
-        "email": "chensi__chs@163.com",
-        "url": "http://github.com/CSNight"
+  "name": "color-range-selector",
+  "version": "0.1.2",
+  "private": false,
+  "_spec": "1.0.1",
+  "_where": "E:\\WebStorm_JS_Workspace\\storm_admin",
+  "author": "Chensi <chensi__chs@163.com> (http://github.com/CSNight)",
+  "bugs": {
+    "url": "http://github.com/CSNight/color-range-selector/issues"
+  },
+  "description": "Provide color range selector component",
+  "engines": {
+    "node": ">=12"
+  },
+  "homepage": "http://github.com/CSNight/color-range-selector",
+  "license": "MIT",
+  "main": "lib/color-range-selector.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+http://github.com/CSNight/color-range-selector.git"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "build:lib": "vue-cli-service build --mode production --target lib --name color-range-selector --dest ./lib/ index.js",
+    "pub": "npm publish --registry https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vuedraggable": "2.24.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.7",
+    "@vue/cli-plugin-eslint": "4.5.7",
+    "@vue/cli-service": "4.5.7",
+    "compression-webpack-plugin": "6.0.3",
+    "babel-eslint": "10.1.0",
+    "core-js": "^3.6.5",
+    "eslint": "^7.10.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11",
+    "sass-loader": "10.0.3",
+    "node-sass": "^4.14.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "bugs": {
-        "url": "http://github.com/CSNight/color-range-selector/issues"
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
     },
-    "description": "Provide color range selector component",
-    "engines": {
-        "node": ">=12"
-    },
-    "homepage": "http://github.com/CSNight/color-range-selector",
-    "license": "BSD-3-Clause OR MIT",
-    "main": "./dist/color-range-selector.umd.min.js",
-    "repository": {
-        "type": "git",
-        "url": "git+http://github.com/CSNight/color-range-selector.git"
-    },
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint",
-        "build:lib": "vue-cli-service build --mode production --target lib --name color-range-selector --dest ./dist/ index.js"
-    },
-    "dependencies": {
-        "vue": "^2.6.11",
-        "vuedraggable": "2.24.2"
-    },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "4.5.7",
-        "@vue/cli-plugin-eslint": "4.5.7",
-        "@vue/cli-service": "4.5.7",
-        "compression-webpack-plugin": "6.0.3",
-        "babel-eslint": "10.1.0",
-        "core-js": "^3.6.5",
-        "eslint": "^7.10.0",
-        "eslint-plugin-vue": "^6.2.2",
-        "vue-template-compiler": "^2.6.11",
-        "sass-loader": "10.0.3",
-        "node-sass": "^4.14.1"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "eslint:recommended"
-        ],
-        "parserOptions": {
-            "parser": "babel-eslint"
-        },
-        "rules": {}
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not dead"
-    ]
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "color",
+    "range"
+  ]
 }
