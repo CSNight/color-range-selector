@@ -21,20 +21,23 @@
                 <input spellcheck="false" style="max-width: 50px" v-model="colorToHex"><span>hex</span>
             </div>
             <div>
-                <input spellcheck="false" v-model="this.showColor.r"/><span>r</span>
+                <input spellcheck="false" type="number" @change="changeInput($event,'r')"
+                       :value="this.showColor.r"/><span>r</span>
             </div>
             <div>
-                <input spellcheck="false" v-model="this.showColor.g"/><span>g</span>
+                <input spellcheck="false" type="number" @change="changeInput($event,'g')"
+                       :value="this.showColor.g"/><span>g</span>
             </div>
             <div>
-                <input spellcheck="false" v-model="this.showColor.b"/><span>b</span>
+                <input spellcheck="false" type="number" @change="changeInput($event,'b')"
+                       :value="this.showColor.b"/><span>b</span>
             </div>
             <div>
-                <input spellcheck="false" style="max-width: 15px" v-model="this.showColor.a"/><span>a</span>
+                <input spellcheck="false" style="max-width: 15px" type="number" @change="changeInput($event,'a')"
+                       :value="this.showColor.a"/><span>a</span>
             </div>
         </div>
         <div style="display: flex;justify-content: flex-end;align-items: center">
-            
             <div class="color-confirm" @click="emitVal">save</div>
         </div>
     </div>
@@ -149,6 +152,10 @@ export default {
         emitVal() {
             this.$emit('change', this.showColor);
         },
+        changeInput($event, key) {
+            this.$set(this.showColor, key, $event.target.valueAsNumber)
+            this.calcBg();
+        },
         calcInfo() {
             let {left: l, width: w} = this.$refs.opacityBar.getBoundingClientRect();
             let {top: t, height: h} = this.$refs.sideBarBg.getBoundingClientRect();
@@ -173,10 +180,10 @@ export default {
             // 计算点像右延长至边界的点的色标
             newColor[1].value = ((min - mid) * max) / (min - max);
             newColor[2].value = 0;
-            
+
             newColor[0].value = 255;
             newColor[1].value = parseInt((255 * newColor[1].value) / max);
-            
+
             newColor.forEach(e => {
                 this.bgColor[e.name] = e.value;
             });
@@ -188,21 +195,21 @@ export default {
             let height = this.sideBar.h;
             let top = 0;
             let total = height / 6;
-            
+
             if (r === 255 && b === 0) top = (g / 255) * total;
             if (g === 255 && b === 0) top = (r / 255 + 1) * total;
             if (g === 255 && r === 0) top = (b / 255 + 2) * total;
             if (b === 255 && r === 0) top = (g / 255 + 3) * total;
             if (b === 255 && g === 0) top = (r / 255 + 4) * total;
             if (r === 255 && g === 0) top = (b / 255 + 5) * total;
-            
+
             this.stackPosition.top = top + "px";
             let max = Math.max(this.showColor.r, this.showColor.g, this.showColor.b);
             let min = Math.min(this.showColor.r, this.showColor.g, this.showColor.b);
             if (max === 0) max = 1
             let x = (min / max) * this.panel.w;
             let y = this.panel.h - (max / 255) * this.panel.h;
-            
+
             this.thumbPosition.left = this.panel.w - x + "px";
             this.thumbPosition.top = y + "px";
         },
@@ -236,10 +243,10 @@ export default {
             let {left, top} = this.thumbPosition;
             left = parseInt(left.substr(0, left.length - 2));
             top = parseInt(top.substr(0, top.length - 2));
-            
+
             let x = w - left;
             let y = top;
-            
+
             this.calcWidthColor(x, y, w, h);
         },
         handleSideDrag(r) {
@@ -264,7 +271,7 @@ export default {
             let x = w - offsetX;
             let y = offsetY;
             this.calcWidthColor(x, y);
-            
+
             // 点击背景后，滑块移动到指针处，在未松开鼠标时依然可拖动
             this.handlePanelDrag($event);
         },
@@ -272,12 +279,12 @@ export default {
             let {pageX, pageY} = res;
             let left = pageX - this.panel.l;
             let top = pageY - this.panel.t;
-            
+
             if (left <= 0) left = 0;
             if (left >= this.panel.w) left = this.panel.w;
             if (top <= 0) top = 0;
             if (top >= this.panel.h) top = this.panel.h;
-            
+
             this.thumbPosition = {
                 left: left + "px",
                 top: top + "px"
@@ -297,7 +304,7 @@ export default {
         changeBgBySide(top, h) {
             // 修改前先将滑块的位置改变
             this.stackPosition.top = top + "px";
-            
+
             // 侧栏一共分为六个区域，每块区域的长度
             let total = h / 6;
             if (top <= (h * 1) / 6) {
@@ -331,7 +338,7 @@ export default {
             }
             this.calcHeightColor(x, y, w, h, newColor);
         },
-        
+
         // 通过右边界交点计算原点的坐标
         calcHeightColor(x, y, w, h, color) {
             for (let key in color) {
@@ -349,17 +356,17 @@ export default {
     font-size: 13px;
     border: 1px #888 solid;
     padding: 12px;
-    
+
     .color-opacity {
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
         background-size: 14px 14px;
         position: relative;
-        
+
         .color-opacity-bar {
             width: 100%;
             height: 14px;
         }
-        
+
         .color-opacity-thumb {
             position: absolute;
             top: -1px;
@@ -374,31 +381,31 @@ export default {
             box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
         }
     }
-    
+
     .color-picker-up {
         display: flex;
         min-height: 100px;
         margin-bottom: 14px;
-        
+
         .color-panel {
             position: relative;
             width: 92%;
             margin-right: 14px;
-            
+
             .panel-bg-white, .panel-bg-black {
                 width: 100%;
                 height: 100%;
                 position: absolute;
             }
-            
+
             .panel-bg-white {
                 background: linear-gradient(90deg, #fff, hsla(0, 0%, 100%, 0));
             }
-            
+
             .panel-bg-black {
                 background: linear-gradient(0deg, #000, transparent);
             }
-            
+
             .panel-thumb {
                 position: absolute;
                 width: 5px;
@@ -409,22 +416,22 @@ export default {
                 cursor: pointer;
             }
         }
-        
+
         .color-sidebar {
             position: relative;
             flex: 1;
-            
+
             .side-bar-bg {
                 width: 10px;
                 height: 100%;
                 background: linear-gradient(180deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
             }
-            
+
             .side-bar-thumb {
                 position: absolute;
                 top: 0;
                 left: -1px;
-                width: 100%;
+                width: 11px;
                 height: 4px;
                 background: #fff;
                 box-sizing: content-box;
@@ -435,13 +442,13 @@ export default {
             }
         }
     }
-    
+
     .color-number {
         width: 70%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
+
         div {
             text-align: center;
             width: 24px;
@@ -454,12 +461,12 @@ export default {
             letter-spacing: 1px;
         }
     }
-    
+
     .flexbox-fix {
         justify-content: space-between;
         div {
             padding-left: 1px;
-            
+
             span {
                 display: block;
                 text-align: center;
@@ -467,7 +474,7 @@ export default {
                 color: #6A7485;
                 text-transform: capitalize
             }
-            
+
             input {
                 max-width: 25px;
                 border: none;
@@ -477,10 +484,18 @@ export default {
                 border-color: #242730 !important;
                 outline: none;
                 background-color: #3A414C !important;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                }
+            }
+            input[type="number"] {
+                -moz-appearance: textfield;
             }
         }
     }
-    
+
     .color-confirm {
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -493,7 +508,7 @@ export default {
         align-items: center;
         justify-content: center;
         height: 20px;
-        
+
         &:hover {
             color: #409eff;
             border-color: #409eff;

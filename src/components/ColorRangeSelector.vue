@@ -30,9 +30,7 @@
                 <div class="form-item">Steps</div>
                 <div class="form-item">
                     <div class="num-input">
-                        <input class="dropdown-label" type="number"
-                               style="width:100%;background: transparent;border: none;outline: none" :readonly="steps"
-                               @change="changeStep"
+                        <input class="dropdown-label" type="number" :readonly="steps" @change="changeStep"
                                :value="step"/>
                     </div>
                 </div>
@@ -73,7 +71,7 @@ import {colorScheme} from "./colorSchemas";
 import CusSelect from "./CusSelect";
 import PaletteEdit from "./paletteEdit";
 import {Clickoutside} from './domUtil'
-import {hexToRgb, rgbaToArr, rgbToArr, rgbToHex} from "@/components/utils";
+import {hexToRgb, rgbaToArr, rgbToArr, rgbToHex} from "./utils";
 
 export default {
     name: "ColorRangeSelector",
@@ -144,7 +142,7 @@ export default {
         }
     }, methods: {
         changeStep(e) {
-            this.step = parseInt(e.data)
+            this.step = e.target.valueAsNumber
         },
         init() {
             if (this.value && this.value.length > 0) {
@@ -257,14 +255,14 @@ export default {
     pointer-events: all;
     opacity: 1;
     box-shadow: none;
-    
+
     .dropdown-label {
         color: #A0A7B4;
         margin-left: 10px;
         font-size: 11px;
         line-height: 20px;
     }
-    
+
     .selector-input {
         width: 100%;
         height: 100%;
@@ -274,7 +272,7 @@ export default {
         padding: 4px 8px;
         cursor: pointer;
     }
-    
+
     .selector-check {
         display: flex;
         min-height: 12px;
@@ -285,7 +283,7 @@ export default {
             position: absolute;
             display: none;
         }
-        
+
         .un-check {
             user-select: none;
             cursor: pointer;
@@ -296,7 +294,7 @@ export default {
             position: relative;
             display: inline-block;
             padding: 0 0 0 24px;
-            
+
             &:before {
                 position: absolute;
                 top: 0;
@@ -308,7 +306,7 @@ export default {
                 border-radius: 1px;
                 background: #242730;
             }
-            
+
             &:after {
                 transition: all .4s ease;
                 position: absolute;
@@ -323,7 +321,7 @@ export default {
                 background: #3A414C;
             }
         }
-        
+
         .check {
             user-select: none;
             cursor: pointer;
@@ -334,7 +332,7 @@ export default {
             position: relative;
             display: inline-block;
             padding: 0 0 0 24px;
-            
+
             &:before {
                 background: #1FBAD6;
                 position: absolute;
@@ -346,7 +344,7 @@ export default {
                 height: 12px;
                 border-radius: 1px;
             }
-            
+
             &:after {
                 transition: all .4s ease;
                 position: absolute;
@@ -362,13 +360,13 @@ export default {
             }
         }
     }
-    
+
     .selector-input:hover {
         cursor: pointer;
         background-color: #3A414C;
         border-color: #D3D8E0;
     }
-    
+
     .dropdown {
         background-color: #29323C;
         border: 0;
@@ -384,39 +382,39 @@ export default {
         margin-bottom: auto;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
         padding: 5px 10px;
-        
+
         .color-palette__group {
             .color-palette__outer {
                 padding: 0 8px;
-                
+
                 &:hover {
                     background-color: #39423C;
                     cursor: pointer;
                 }
             }
         }
-        
+
         &::-webkit-scrollbar {
             width: 10px !important;
             height: 10px !important;
         }
-        
+
         &::-webkit-scrollbar-corner {
             background: #29323C !important;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             border-radius: 10px !important;
             background-color: #3A4552 !important;
             border: 3px solid #29323C !important;
         }
     }
-    
+
     .form-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
+
         .form-item {
             line-height: 32px;
             flex: 1;
@@ -424,7 +422,7 @@ export default {
             position: relative;
         }
     }
-    
+
     .num-input {
         background-color: #3A414C;
         border-color: #D3D8E0;
@@ -434,7 +432,23 @@ export default {
         line-height: 28px;
         color: #A0A7B4;
         overflow: hidden;
+
+        input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
     }
-    
+
 }
 </style>
