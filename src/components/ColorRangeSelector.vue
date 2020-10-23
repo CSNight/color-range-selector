@@ -206,7 +206,7 @@ export default {
             }
         },
         choosePalette(e) {
-            this.selectPalette = e;
+            this.$set(this, 'selectPalette', e);
         },
         chooseType(type) {
             this.currentType = type;
@@ -228,6 +228,7 @@ export default {
         editChange(palette) {
             this.showCus = false;
             if (palette && palette.colors.length > 0) {
+                palette.name = "custom"
                 this.selectPalette = palette;
             }
         }
