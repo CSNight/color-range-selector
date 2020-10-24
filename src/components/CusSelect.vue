@@ -14,6 +14,7 @@
 
 <script>
 import {Clickoutside} from './domUtil'
+
 export default {
     directives: {Clickoutside},
     name: "CusSelect",
@@ -34,7 +35,7 @@ export default {
             this.show = true;
         }
     }
-    
+
 }
 </script>
 
@@ -46,18 +47,18 @@ export default {
 .dropdown-select {
     z-index: 100;
     position: relative;
-    
+
     .dropdown-input {
         background-color: #3A414C;
         border-color: #D3D8E0;
         box-shadow: none;
-        
+
         .dropdown-val {
             color: #A0A7B4;
             overflow: hidden;
         }
     }
-    
+
     .dropdown-panel {
         border: 0;
         left: 0;
@@ -71,8 +72,8 @@ export default {
         flex-direction: column;
         background-color: #29323C;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
-        
-        
+
+
         .item-selector {
             background-color: #29323C;
             border-top: 1px solid #242730;
@@ -80,20 +81,19 @@ export default {
             max-height: 280px;
             box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
             border-radius: 2px;
-            
+
             .list_item {
                 font-size: 11px;
-                // padding: 3px 9px;
                 font-weight: 500;
                 white-space: nowrap;
             }
-            
+
             .list_item:hover {
                 cursor: pointer;
                 background-color: #6A7485;
             }
         }
-        
+
     }
 }
 </style>

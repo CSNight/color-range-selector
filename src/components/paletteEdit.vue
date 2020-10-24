@@ -156,7 +156,7 @@ export default {
     
     .delBtn {
         cursor: pointer;
-        
+        width: 60px;
         &:hover {
             fill: #fff;
         }
@@ -179,6 +179,7 @@ export default {
     
     .color-edit {
         margin-left: 12px;
+        width: 100%;
         
         .color-input {
             color: #A0A7B4;
@@ -201,6 +202,7 @@ export default {
     
     .anchor {
         visibility: hidden;
+        width: 60px;
     }
     
     &:hover {
