@@ -35,7 +35,7 @@ export default {
             this.show = true;
         }
     }
-
+    
 }
 </script>
 
@@ -47,18 +47,18 @@ export default {
 .dropdown-select {
     z-index: 100;
     position: relative;
-
+    
     .dropdown-input {
         background-color: #3A414C;
         border-color: #D3D8E0;
         box-shadow: none;
-
+        
         .dropdown-val {
             color: #A0A7B4;
             overflow: hidden;
         }
     }
-
+    
     .dropdown-panel {
         border: 0;
         left: 0;
@@ -72,8 +72,8 @@ export default {
         flex-direction: column;
         background-color: #29323C;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
-
-
+        
+        
         .item-selector {
             background-color: #29323C;
             border-top: 1px solid #242730;
@@ -81,19 +81,32 @@ export default {
             max-height: 280px;
             box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
             border-radius: 2px;
-
+            &::-webkit-scrollbar {
+                width: 10px !important;
+                height: 10px !important;
+            }
+    
+            &::-webkit-scrollbar-corner {
+                background: #29323C !important;
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                border-radius: 10px !important;
+                background-color: #3A4552 !important;
+                border: 3px solid #29323C !important;
+            }
             .list_item {
                 font-size: 11px;
                 font-weight: 500;
                 white-space: nowrap;
             }
-
+            
             .list_item:hover {
                 cursor: pointer;
                 background-color: #6A7485;
             }
         }
-
+        
     }
 }
 </style>

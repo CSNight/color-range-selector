@@ -1,7 +1,7 @@
 <template>
     <div class="selector" ref="dom" v-clickoutside="closeDropdown">
         <div class="selector-input">
-            <color-palette v-if="selectPalette" :colors="selectPalette.colors" @click.native="showDropdown"/>
+            <color-palette v-if="selectPalette" :colors="selectPalette.colors"/>
             <svg viewBox="0 0 1024 1024" width="16" height="16" style="fill: #fff;cursor: pointer" v-if="!showDrop"
                  @click="showDropdown">
                 <path
@@ -28,12 +28,8 @@
             </div>
             <div class="form-wrapper">
                 <div class="form-item">Steps</div>
-                <div class="form-item">
-                    <div class="num-input">
-                        <input class="dropdown-label" type="number" :readonly="steps" @change="changeStep"
-                               :value="step"/>
-                    </div>
-                </div>
+                <cus-select class="form-item" style="z-index:5" :types="[3,4,5,6,7,8,9,10,11,12,15,20]" :clazz="step"
+                            @change="changeStep"/>
             </div>
             <div class="form-wrapper">
                 <div class="form-item">Reversed</div>
@@ -96,6 +92,7 @@ export default {
         if (this.mode) {
             this.modes = this.mode;
         }
+        document.querySelector('.selector-input').addEventListener('click', this.showDropdown)
         if (!this.init()) {
             this.selectPalette = this.matchColorSets[0];
         }
@@ -147,7 +144,7 @@ export default {
         }
     }, methods: {
         changeStep(e) {
-            this.step = e.target.valueAsNumber
+            this.step = e
         },
         init() {
             if (this.value && this.value.length > 0) {
@@ -216,6 +213,9 @@ export default {
             this.showDrop = true;
         },
         closeDropdown() {
+            if (!this.showDrop) {
+                return;
+            }
             this.emitVal()
             this.showDrop = false;
         },
@@ -261,14 +261,14 @@ export default {
     pointer-events: all;
     opacity: 1;
     box-shadow: none;
-
+    
     .dropdown-label {
         color: #A0A7B4;
         margin-left: 10px;
         font-size: 11px;
         line-height: 20px;
     }
-
+    
     .selector-input {
         width: 100%;
         height: 100%;
@@ -279,18 +279,18 @@ export default {
         cursor: pointer;
         box-sizing: border-box;
     }
-
+    
     .selector-check {
         display: flex;
         min-height: 12px;
         margin-left: 12px;
         justify-content: flex-end;
-
+        
         input {
             position: absolute;
             display: none;
         }
-
+        
         .un-check {
             user-select: none;
             cursor: pointer;
@@ -301,7 +301,7 @@ export default {
             position: relative;
             display: inline-block;
             padding: 0 0 0 24px;
-
+            
             &:before {
                 position: absolute;
                 top: 0;
@@ -313,7 +313,7 @@ export default {
                 border-radius: 1px;
                 background: #242730;
             }
-
+            
             &:after {
                 transition: all .4s ease;
                 position: absolute;
@@ -328,7 +328,7 @@ export default {
                 background: #3A414C;
             }
         }
-
+        
         .check {
             user-select: none;
             cursor: pointer;
@@ -339,7 +339,7 @@ export default {
             position: relative;
             display: inline-block;
             padding: 0 0 0 24px;
-
+            
             &:before {
                 background: #1FBAD6;
                 position: absolute;
@@ -351,7 +351,7 @@ export default {
                 height: 12px;
                 border-radius: 1px;
             }
-
+            
             &:after {
                 transition: all .4s ease;
                 position: absolute;
@@ -367,18 +367,18 @@ export default {
             }
         }
     }
-
+    
     .selector-input:hover {
         cursor: pointer;
         background-color: #3A414C;
         border-color: #D3D8E0;
     }
-
+    
     .dropdown {
         background-color: #29323C;
         border: 0;
-        max-height: 400px;
-        min-height: 150px;
+        max-height: 450px;
+        min-height: 350px;
         overflow-y: auto;
         overflow-x: hidden;
         width: 100%;
@@ -389,40 +389,40 @@ export default {
         margin-top: 4px;
         margin-bottom: auto;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
-
+        
         .color-palette__group {
             .color-palette__outer {
                 padding: 0 8px;
-
+                
                 &:hover {
                     background-color: #39423C;
                     cursor: pointer;
                 }
             }
         }
-
+        
         &::-webkit-scrollbar {
             width: 10px !important;
             height: 10px !important;
         }
-
+        
         &::-webkit-scrollbar-corner {
             background: #29323C !important;
         }
-
+        
         &::-webkit-scrollbar-thumb {
             border-radius: 10px !important;
             background-color: #3A4552 !important;
             border: 3px solid #29323C !important;
         }
     }
-
+    
     .form-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin: 5px 10px;
-
+        
         .form-item {
             line-height: 32px;
             flex: 1;
@@ -430,7 +430,7 @@ export default {
             position: relative;
         }
     }
-
+    
     .num-input {
         background-color: #3A414C;
         border-color: #D3D8E0;
@@ -440,23 +440,23 @@ export default {
         line-height: 28px;
         color: #A0A7B4;
         overflow: hidden;
-
+        
         input {
             width: 100%;
             background: transparent;
             border: none;
             outline: none;
-
+            
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
                 -webkit-appearance: none;
             }
         }
-
+        
         input[type="number"] {
             -moz-appearance: textfield;
         }
     }
-
+    
 }
 </style>

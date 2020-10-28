@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="app">
-        <ColorRangeSelector :steps="5" mode="hex" style="width: 250px"/>
+        <ColorRangeSelector :steps="5" mode="hex" style="width: 250px" @change="co"/>
     </div>
 </template>
 
@@ -9,7 +9,12 @@ import ColorRangeSelector from "@/components/ColorRangeSelector";
 
 export default {
     name: 'app',
-    components: {ColorRangeSelector}
+    components: {ColorRangeSelector},
+    methods:{
+        co(e){
+            console.log(e)
+        }
+    }
 }
 </script>
 <style>

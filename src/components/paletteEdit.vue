@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import {Clickoutside} from './domUtil'
 import draggable from "vuedraggable";
 import colorPicker from './ColorPicker'
 import {guid, hexToRgb, rgbToHex} from "./utils";
@@ -48,7 +47,6 @@ export default {
     name: "paletteEdit",
     props: ['palette'],
     components: {draggable, colorPicker},
-    directives: {Clickoutside},
     mounted() {
         this.$nextTick(() => {
             if (this.palette && this.palette.colors.length > 0) {
@@ -157,6 +155,7 @@ export default {
     .delBtn {
         cursor: pointer;
         width: 60px;
+        
         &:hover {
             fill: #fff;
         }
